@@ -42,7 +42,7 @@ bake
 
 To run the entity browser example, do (after building):
 ```
-cd examples/c/entity_browser
+cd flecs-systems-rest/examples/c/entity_browser
 bake run
 ```
 
