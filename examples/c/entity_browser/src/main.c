@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     ECS_META(world, Rotation);
 
     /* Start REST server */
-    ecs_entity_t server = ecs_set(world, 0, EcsRestServer, {port: 8080});
+    ecs_entity_t server = ecs_set(world, 0, EcsRestServer, {.port: 8080});
 
     /* Add endpoint to server for serving up files */
     ecs_entity_t e_files = ecs_new_child(world, server, 0);
