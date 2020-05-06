@@ -1,6 +1,22 @@
 
 Vue.config.devtools = true;
 
+function request(url, onmsg, onloadend) {
+  const Http = new XMLHttpRequest();
+  Http.open("GET", url);
+  if (onloadend) {
+    Http.onloadend = function() { onloadend(Http); };
+  }
+  Http.send();
+  Http.onreadystatechange = (e)=>{
+    if (Http.readyState == 4) {
+      if (Http.responseText && Http.responseText.length) {
+        onmsg(JSON.parse(Http.responseText));
+      }
+    }
+  }
+}
+
 var app = new Vue({
   el: '#app',
 
@@ -8,38 +24,48 @@ var app = new Vue({
     query_on_changed(e) {
       this.query = e.query;
 
-      const Http = new XMLHttpRequest();
       host = this.host;
-      url = "http://" + this.host + "/entities";
+      let url = "http://" + this.host + "/entities";
       if (this.query && this.query.length) {
         url += "?include=" + this.query;
       }
 
-      Http.open("GET", url);
+      request(url, 
+        // On message received
+        (msg) => {
+          this.data = msg;
+          this.error = false;
+          this.query_ok = this.query;
+        }, 
+        // On load end
+        (Http) => {
+          if(Http.status == 404) {
+            this.error = true;
+          };
+        });
 
-      Http.onloadend = function() {
-        if(Http.status == 404) {
-          this.error = true;
-        };
-      }.bind(this);
-
-      Http.send();
-      Http.onreadystatechange = (e)=>{
-        if (Http.readyState == 4) {
-          if (Http.responseText && Http.responseText.length) {
-            this.data = JSON.parse(Http.responseText);
-            this.error = false;
-          }
-        }
+      // If the query only contains a single entity, also query for just the
+      // entity.
+      if (this.query.length && this.query.indexOf(",") == -1) {
+        let url = "http://" + this.host + "/entities/" + this.query.trim();
+        request(url, (msg) => {
+          this.entity = msg;
+        });
+      } else {
+        this.entity = undefined;
       }
+
+      
     }
   },
 
   data: {
     host: window.location.host,
     query: "",
+    query_ok: "",
     error: false,
-    data: []
+    data: [],
+    entity: undefined
   }
 });
 

@@ -8,12 +8,14 @@
   </head>
   <body>
     <div id="app">
-        <query v-on:changed="query_on_changed" :error="error"></query>
-        <entities :data="data"></entities>
+      <query v-on:changed="query_on_changed" :error="error"></query>
+      <entity :entity="entity" :query="query_ok"></entity>
+      <tables :data="data" :query="query_ok"></tables>
     </div>
 
     <script src="js/vue.js"></script>
-    <script src="js/entities.js"></script>
+    <script src="js/entity.js"></script>
+    <script src="js/tables.js"></script>
     <script src="js/query.js"></script>
     <script src="js/app.js"></script>
   </body>
