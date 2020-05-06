@@ -41,3 +41,89 @@ cd examples/c/entity_browser
 bake run
 ```
 
+## API overview
+Currently the API has one `entities` endpoint that can either return the data for a single entity or entities that match a set of components. To retrieve data for a single entity called "MyEntity", do:
+
+```
+http://localhost:8080/entities/MyEntity
+```
+
+Which will return something similar to:
+
+```json
+{
+	"type": [
+		["EcsId"],
+		["Position"]
+	],
+	"entity": 86,
+	"data": {
+		"EcsId": "E1",
+		"Position": {
+			"x": 30.000000,
+			"y": 40.000000
+		}
+	}
+}
+```
+
+To return all entities for a given component, do:
+
+```
+http://localhost:8080/entities?include=Position
+```
+
+Which will return something similar to:
+
+```json
+[{
+	"type": [
+		["EcsId"],
+		["Position"],
+		["Velocity"]
+	],
+	"entities": [87, 88],
+	"data": {
+		"EcsId": ["E2", "E3"],
+		"Position": [{
+			"x": 10.000000,
+			"y": 20.000000
+		}, {
+			"x": 30.000000,
+			"y": 40.000000
+		}],
+		"Velocity": [{
+			"x": 1.000000,
+			"y": 2.000000
+		}, {
+			"x": 3.000000,
+			"y": 4.000000
+		}]
+	}
+}, {
+	"type": [
+		["EcsId"],
+		["Position"],
+		["Velocity"],
+		["Rotation"]
+	],
+	"entities": [89],
+	"data": {
+		"EcsId": ["E4"],
+		"Position": [{
+			"x": 30.000000,
+			"y": 40.000000
+		}],
+		"Velocity": [{
+			"x": 3.000000,
+			"y": 4.000000
+		}],
+		"Rotation": [{
+			"angle": 0.500000
+		}]
+	}
+}]
+```
+
+
+
