@@ -52,18 +52,18 @@ Which will return something similar to:
 
 ```json
 {
-	"type": [
-		["EcsId"],
-		["Position"]
-	],
-	"entity": 86,
-	"data": {
-		"EcsId": "E1",
-		"Position": {
-			"x": 30.000000,
-			"y": 40.000000
-		}
-	}
+  "type": [
+    ["EcsId"],
+    ["Position"]
+  ],
+  "entity": 86,
+  "data": {
+    "EcsId": "E1",
+    "Position": {
+      "x": 30.000000,
+      "y": 40.000000
+    }
+  }
 }
 ```
 
@@ -77,51 +77,51 @@ Which will return something similar to:
 
 ```json
 [{
-	"type": [
-		["EcsId"],
-		["Position"],
-		["Velocity"]
-	],
-	"entities": [87, 88],
-	"data": {
-		"EcsId": ["E2", "E3"],
-		"Position": [{
-			"x": 10.000000,
-			"y": 20.000000
-		}, {
-			"x": 30.000000,
-			"y": 40.000000
-		}],
-		"Velocity": [{
-			"x": 1.000000,
-			"y": 2.000000
-		}, {
-			"x": 3.000000,
-			"y": 4.000000
-		}]
-	}
+  "type": [
+    ["EcsId"],
+    ["Position"],
+    ["Velocity"]
+  ],
+  "entities": [87, 88],
+  "data": {
+    "EcsId": ["E2", "E3"],
+    "Position": [{
+      "x": 10.000000,
+      "y": 20.000000
+    }, {
+      "x": 30.000000,
+      "y": 40.000000
+    }],
+    "Velocity": [{
+      "x": 1.000000,
+      "y": 2.000000
+    }, {
+      "x": 3.000000,
+      "y": 4.000000
+    }]
+  }
 }, {
-	"type": [
-		["EcsId"],
-		["Position"],
-		["Velocity"],
-		["Rotation"]
-	],
-	"entities": [89],
-	"data": {
-		"EcsId": ["E4"],
-		"Position": [{
-			"x": 30.000000,
-			"y": 40.000000
-		}],
-		"Velocity": [{
-			"x": 3.000000,
-			"y": 4.000000
-		}],
-		"Rotation": [{
-			"angle": 0.500000
-		}]
-	}
+  "type": [
+    ["EcsId"],
+    ["Position"],
+    ["Velocity"],
+    ["Rotation"]
+  ],
+  "entities": [89],
+  "data": {
+    "EcsId": ["E4"],
+    "Position": [{
+      "x": 30.000000,
+      "y": 40.000000
+    }],
+    "Velocity": [{
+      "x": 3.000000,
+      "y": 4.000000
+    }],
+    "Rotation": [{
+      "angle": 0.500000
+    }]
+  }
 }]
 ```
 
