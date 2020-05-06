@@ -1,0 +1,14 @@
+{
+    "id": "flecs.systems.rest",
+    "type": "package",
+    "value": {
+        "author": "Sander Mertens",
+        "description": "Flecs module package",
+        "use": [
+            "flecs",
+            "flecs.components.http",
+            "flecs.components.meta",
+            "flecs.json"
+        ]
+    }
+}

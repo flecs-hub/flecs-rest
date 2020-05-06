@@ -1,0 +1,14 @@
+{
+    "id": "simple_server",
+    "type": "application",
+    "value": {
+        "author": "Jane Doe",
+        "description": "A simple hello world flecs application",
+        "use": [
+            "flecs",
+            "flecs.components.meta",
+            "flecs.systems.rest",
+            "flecs.systems.civetweb"
+        ]
+    }
+}
