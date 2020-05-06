@@ -11,7 +11,9 @@ ecs_entity_t server = ecs_set(world, 0, EcsRestServer, {port: 8080});
 ## Building
 The REST module has the following dependencies:
 
+- https://github.com/flecs-hub/flecs-components-http
 - https://github.com/flecs-hub/flecs-components-meta
+- https://github.com/flecs-hub/flecs-systems-civetweb
 - https://github.com/flecs-hub/flecs-json
 - https://github.com/SanderMertens/flecs (checkout bleeding-edge)
 
@@ -25,9 +27,12 @@ bake/bake setup
 
 Then clone the repositories in the same directory:
 ```
+git clone https://github.com/SanderMertens/flecs --branch bleeding_edge
+git clone https://github.com/flecs-hub/flecs-components-http
 git clone https://github.com/flecs-hub/flecs-components-meta
 git clone https://github.com/flecs-hub/flecs-json
-git clone https://github.com/SanderMertens/flecs (checkout bleeding-edge)
+git clone https://github.com/flecs-hub/flecs-systems-civetweb
+git clone https://github.com/flecs-hub/flecs-systems-rest
 ```
 
 And then run bake in that directory:
