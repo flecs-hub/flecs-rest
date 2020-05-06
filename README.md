@@ -58,7 +58,7 @@ Which will return something similar to:
   ],
   "entity": 86,
   "data": {
-    "EcsId": "E1",
+    "EcsId": "MyEntity",
     "Position": {
       "x": 30.000000,
       "y": 40.000000
