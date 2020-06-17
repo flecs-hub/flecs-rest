@@ -7,7 +7,7 @@
         "use": [
             "flecs",
             "flecs.components.http",
-            "flecs.components.meta",
+            "flecs.meta",
             "flecs.json"
         ]
     }

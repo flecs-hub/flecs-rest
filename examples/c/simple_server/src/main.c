@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
      * or for starting the admin dashboard (see flecs.h for details). */
     ecs_world_t *world = ecs_init_w_args(argc, argv);
 
-    ECS_IMPORT(world, FlecsComponentsMeta, 0);
+    ECS_IMPORT(world, FlecsMeta, 0);
     ECS_IMPORT(world, FlecsSystemsRest, 0);
     ECS_IMPORT(world, FlecsSystemsCivetweb, 0);
 
@@ -23,16 +23,16 @@ int main(int argc, char *argv[]) {
     ECS_META(world, Velocity);
 
     /* Start server */
-    ecs_set(world, 0, EcsRestServer, {port: 8080});
+    ecs_set(world, 0, EcsRestServer, {.port = 8080});
 
     /* Create a dummy entities for demo data */
     ecs_set(world, ecs_set(world, ecs_set(world, 0,
-        EcsId, {"E1"}),
+        EcsName, {"E1"}),
         Position, {10, 20}),
         Velocity, {1, 2});
 
     ecs_set(world, ecs_set(world, ecs_set(world, 0,
-        EcsId, {"E2"}),
+        EcsName, {"E2"}),
         Position, {30, 40}),
         Velocity, {3, 4});
 
