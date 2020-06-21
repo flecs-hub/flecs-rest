@@ -232,7 +232,7 @@ Which will return a response similar to:
 }]
 ```
 
-### /browse
+### GET /browse
 Get information for entities in a scope.
 
 ```
@@ -260,7 +260,7 @@ Which will return a response similar to:
 The include parameter can be used to filter entities.
 
 
-### /info
+### GET /info
 Get information for a single entity
 
 ```
