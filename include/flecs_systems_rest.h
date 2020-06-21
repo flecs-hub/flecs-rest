@@ -8,9 +8,9 @@
 extern "C" {
 #endif
 
-typedef struct EcsRestServer {
+ECS_STRUCT(EcsRestServer, {
     int16_t port;
-} EcsRestServer;
+});
 
 typedef struct FlecsSystemsRest {
     ECS_DECLARE_COMPONENT(EcsRestServer);

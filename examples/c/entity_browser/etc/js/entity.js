@@ -18,10 +18,7 @@ Vue.component('entity', {
             <tr>
               <th>Entity</th>
               <th v-for="component in entity.type">
-                <span v-if="component.length == 1">
-                  {{ component[0] }}
-                </span>
-                <span v-else>
+                <span>
                   {{ component }}
                 </span>
               </th>
@@ -29,8 +26,8 @@ Vue.component('entity', {
             <tr>
               <td>{{ entity.entity }}</td>
               <td v-for="component in entity.type">
-              <div v-if="entity.data[component[0]]">
-                  {{ entity.data[component[0]] }}
+              <div v-if="entity.data[component]">
+                  {{ entity.data[component] }}
               </div>
             </td>            
             </tr>

@@ -11,10 +11,7 @@ Vue.component('tables', {
               <tr>
                 <th>Entity</th>
                 <th v-for="component in table.type">
-                  <span v-if="component.length == 1">
-                    {{ component[0] }}
-                  </span>
-                  <span v-else>
+                  <span>
                     {{ component }}
                   </span>
                 </th>
@@ -22,8 +19,8 @@ Vue.component('tables', {
               <tr v-for="(entity, i) in table.entities">
                 <td>{{ entity }}</td>
                 <td v-for="component in table.type">
-                  <div v-if="table.data[component[0]]" class="ecs-value">
-                      {{ table.data[component[0]][i] }}
+                  <div v-if="table.data[component]" class="ecs-value">
+                      {{ table.data[component][i] }}
                   </div>
                 </td>
               </tr>

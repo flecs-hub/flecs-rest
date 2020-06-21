@@ -25,7 +25,7 @@ var app = new Vue({
       this.query = e.query;
 
       host = this.host;
-      let url = "http://" + this.host + "/entities";
+      let url = "http://" + this.host + "/filter";
       if (this.query && this.query.length) {
         url += "?include=" + this.query;
       }
@@ -47,7 +47,7 @@ var app = new Vue({
       // If the query only contains a single entity, also query for just the
       // entity.
       if (this.query.length && this.query.indexOf(",") == -1) {
-        let url = "http://" + this.host + "/entities/" + this.query.trim();
+        let url = "http://" + this.host + "/entity/" + this.query.trim();
         request(url, (msg) => {
           this.entity = msg;
         });
