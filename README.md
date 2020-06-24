@@ -62,7 +62,7 @@ Which will return a response something similar to:
   "type": ["Name", "Position"],
   "entity": 330,
   "data": {
-    "EcsId": {
+    "Name": {
       "value": "MyEntity"
     },
     "Position": {
