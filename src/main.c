@@ -1,4 +1,4 @@
-#include <flecs_systems_rest.h>
+#include <flecs_rest.h>
 
 static
 bool parse_filter(
@@ -247,7 +247,7 @@ void serialize_browse_info(
         ecs_strbuf_list_append(str, "\"path\":\"%s\"", fullpath);
     }
 
-    int32_t child_count = ecs_child_count(world, e);
+    int32_t child_count = ecs_get_child_count(world, e);
     ecs_strbuf_list_append(str, "\"child_count\":%u", child_count);
 }
 
@@ -314,10 +314,12 @@ bool endpoint_info(
     return true;
 }
 
-void SetRestServer(ecs_iter_t *it) {
-    ECS_COLUMN(it, EcsRestServer, server_data, 1);
-    ECS_COLUMN_COMPONENT(it, EcsHttpServer, 2);
-    ECS_COLUMN_COMPONENT(it, EcsHttpEndpoint, 3);
+static
+void EcsRestSetServer(ecs_iter_t *it) {
+    EcsRestServer *server_data = ecs_column(it, EcsRestServer, 1);
+    ecs_entity_t ecs_entity(EcsHttpServer) = ecs_column_entity(it, 2);
+    ecs_entity_t ecs_entity(EcsHttpEndpoint) = ecs_column_entity(it, 3);
+    ecs_entity_t EcsRestInitialized = ecs_column_entity(it, 4);
 
     ecs_world_t *world = it->world;
 
@@ -327,6 +329,12 @@ void SetRestServer(ecs_iter_t *it) {
 
         // Get filtered list of entities
         ecs_set(world, server, EcsHttpServer, {.port = server_data[i].port});
+
+        if (ecs_has_entity(world, server, EcsRestInitialized)) {
+            /* Don't add endpoints more than once */
+            continue;
+        }
+
           ecs_entity_t e_filter = ecs_new_w_entity(world, ECS_CHILDOF | server);
             ecs_set(world, e_filter, EcsName, {"e_filter"});
             ecs_set(world, e_filter, EcsHttpEndpoint, {
@@ -374,15 +382,17 @@ void SetRestServer(ecs_iter_t *it) {
                 .action = endpoint_info,
                 .synchronous = true,
                 .ctx = NULL
-            });                                                
+            });
+
+        ecs_add_entity(world, server, EcsRestInitialized);
     }
 }
 
-void FlecsSystemsRestImport(
+void FlecsRestImport(
     ecs_world_t *world,
     int flags)
 {
-    ECS_MODULE(world, FlecsSystemsRest);
+    ECS_MODULE(world, FlecsRest);
 
     ecs_set_name_prefix(world, "EcsRest");
 
@@ -390,9 +400,12 @@ void FlecsSystemsRestImport(
     ECS_IMPORT(world, FlecsComponentsHttp, 0);
 
     ECS_META(world, EcsRestServer);
-    ECS_SYSTEM(world, SetRestServer, EcsOnSet, Server, 
+    ECS_TAG(world, EcsRestInitialized);
+
+    ECS_SYSTEM(world, EcsRestSetServer, EcsOnSet, Server, 
         :flecs.components.http.Server, 
-        :flecs.components.http.Endpoint);
+        :flecs.components.http.Endpoint,
+        :Initialized);
 
     ECS_EXPORT_COMPONENT(EcsRestServer);
 }

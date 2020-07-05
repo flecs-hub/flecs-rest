@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
     ecs_world_t *world = ecs_init_w_args(argc, argv);
 
     ECS_IMPORT(world, FlecsMeta, 0);
-    ECS_IMPORT(world, FlecsSystemsRest, 0);
+    ECS_IMPORT(world, FlecsRest, 0);
     ECS_IMPORT(world, FlecsSystemsCivetweb, 0);
 
     ECS_META(world, Position);

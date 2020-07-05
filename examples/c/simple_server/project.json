@@ -7,7 +7,7 @@
         "use": [
             "flecs",
             "flecs.meta",
-            "flecs.systems.rest",
+            "flecs.rest",
             "flecs.systems.civetweb"
         ]
     }

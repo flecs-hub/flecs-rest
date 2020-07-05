@@ -2,7 +2,7 @@
 #define FLECS_SYSTEMS_REST_H
 
 /* This generated file contains includes for project dependencies */
-#include "flecs-systems-rest/bake_config.h"
+#include "flecs-rest/bake_config.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -12,15 +12,15 @@ ECS_STRUCT(EcsRestServer, {
     int16_t port;
 });
 
-typedef struct FlecsSystemsRest {
+typedef struct FlecsRest {
     ECS_DECLARE_COMPONENT(EcsRestServer);
-} FlecsSystemsRest;
+} FlecsRest;
 
-void FlecsSystemsRestImport(
+void FlecsRestImport(
     ecs_world_t *world,
     int flags);
 
-#define FlecsSystemsRestImportHandles(handles) \
+#define FlecsRestImportHandles(handles) \
     ECS_IMPORT_COMPONENT(handles, EcsRestServer); 
 
 #ifdef __cplusplus

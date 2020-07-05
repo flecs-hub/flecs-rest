@@ -38,7 +38,7 @@ bool request_files(
         fclose(f);
     }
 
-    reply->body = strdup(path);
+    reply->body = ecs_os_strdup(path);
     reply->is_file = true;
 
     return true;
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
 
     ECS_IMPORT(world, FlecsMeta, 0);
     ECS_IMPORT(world, FlecsComponentsHttp, 0);
-    ECS_IMPORT(world, FlecsSystemsRest, 0);
+    ECS_IMPORT(world, FlecsRest, 0);
     ECS_IMPORT(world, FlecsSystemsCivetweb, 0);
 
     ECS_META(world, Position);

@@ -1,5 +1,5 @@
 {
-    "id": "flecs.systems.rest",
+    "id": "flecs.rest",
     "type": "package",
     "value": {
         "author": "Sander Mertens",

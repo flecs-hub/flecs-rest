@@ -14,8 +14,8 @@
  * dependencies will automatically show up in this file. Include bake_config.h
  * in your main project file. Do not edit! */
 
-#ifndef FLECS_SYSTEMS_REST_BAKE_CONFIG_H
-#define FLECS_SYSTEMS_REST_BAKE_CONFIG_H
+#ifndef FLECS_REST_BAKE_CONFIG_H
+#define FLECS_REST_BAKE_CONFIG_H
 
 /* Headers of public dependencies */
 #include <flecs.h>
@@ -24,23 +24,19 @@
 #include <flecs_json.h>
 
 /* Headers of private dependencies */
-#ifdef FLECS_SYSTEMS_REST_IMPL
+#ifdef flecs_rest_EXPORT
 /* No dependencies */
 #endif
 
 /* Convenience macro for exporting symbols */
-#ifndef FLECS_SYSTEMS_REST_STATIC
-  #if FLECS_SYSTEMS_REST_IMPL && (defined(_MSC_VER) || defined(__MINGW32__))
-    #define FLECS_SYSTEMS_REST_EXPORT __declspec(dllexport)
-  #elif FLECS_SYSTEMS_REST_IMPL
-    #define FLECS_SYSTEMS_REST_EXPORT __attribute__((__visibility__("default")))
-  #elif defined _MSC_VER
-    #define FLECS_SYSTEMS_REST_EXPORT __declspec(dllimport)
-  #else
-    #define FLECS_SYSTEMS_REST_EXPORT
-  #endif
+#if flecs_rest_EXPORTS && (defined(_MSC_VER) || defined(__MINGW32__))
+  #define FLECS_REST_EXPORT __declspec(dllexport)
+#elif flecs_rest_EXPORTS
+  #define FLECS_REST_EXPORT __attribute__((__visibility__("default")))
+#elif defined _MSC_VER
+  #define FLECS_REST_EXPORT __declspec(dllimport)
 #else
-  #define FLECS_SYSTEMS_REST_EXPORT
+  #define FLECS_REST_EXPORT
 #endif
 
 #endif
