@@ -62,7 +62,7 @@ Which will return a response something similar to:
   "type": ["Name", "Position"],
   "entity": 330,
   "data": {
-    "EcsId": {
+    "Name": {
       "value": "MyEntity"
     },
     "Position": {
@@ -232,7 +232,7 @@ Which will return a response similar to:
 }]
 ```
 
-### /browse
+### GET /browse
 Get information for entities in a scope.
 
 ```
@@ -260,7 +260,7 @@ Which will return a response similar to:
 The include parameter can be used to filter entities.
 
 
-### /info
+### GET /info
 Get information for a single entity
 
 ```
