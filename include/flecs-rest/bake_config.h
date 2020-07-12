@@ -23,18 +23,17 @@
 #include <flecs_meta.h>
 #include <flecs_json.h>
 
-/* Headers of private dependencies */
-#ifdef flecs_rest_EXPORT
-/* No dependencies */
-#endif
-
 /* Convenience macro for exporting symbols */
+#ifndef flecs_rest_STATIC
 #if flecs_rest_EXPORTS && (defined(_MSC_VER) || defined(__MINGW32__))
   #define FLECS_REST_EXPORT __declspec(dllexport)
 #elif flecs_rest_EXPORTS
   #define FLECS_REST_EXPORT __attribute__((__visibility__("default")))
 #elif defined _MSC_VER
   #define FLECS_REST_EXPORT __declspec(dllimport)
+#else
+  #define FLECS_REST_EXPORT
+#endif
 #else
   #define FLECS_REST_EXPORT
 #endif

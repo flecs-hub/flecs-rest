@@ -4,7 +4,7 @@
 REST interface for Flecs applications. This module allows introspection of entities through a REST interface. Applications can enable the REST interface by importing the module and instantiating the EcsRestServer component:
 
 ```c
-ECS_IMPORT(world, FlecsRest, 0);
+ECS_IMPORT(world, FlecsRest);
 ecs_entity_t server = ecs_set(world, 0, EcsRestServer, {port: 8080});
 ```
 

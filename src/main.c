@@ -389,15 +389,14 @@ void EcsRestSetServer(ecs_iter_t *it) {
 }
 
 void FlecsRestImport(
-    ecs_world_t *world,
-    int flags)
+    ecs_world_t *world)
 {
     ECS_MODULE(world, FlecsRest);
 
     ecs_set_name_prefix(world, "EcsRest");
 
-    ECS_IMPORT(world, FlecsMeta, 0);
-    ECS_IMPORT(world, FlecsComponentsHttp, 0);
+    ECS_IMPORT(world, FlecsMeta);
+    ECS_IMPORT(world, FlecsComponentsHttp);
 
     ECS_META(world, EcsRestServer);
     ECS_TAG(world, EcsRestInitialized);

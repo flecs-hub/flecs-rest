@@ -17,8 +17,7 @@ typedef struct FlecsRest {
 } FlecsRest;
 
 void FlecsRestImport(
-    ecs_world_t *world,
-    int flags);
+    ecs_world_t *world);
 
 #define FlecsRestImportHandles(handles) \
     ECS_IMPORT_COMPONENT(handles, EcsRestServer); 

@@ -49,10 +49,10 @@ int main(int argc, char *argv[]) {
      * or for starting the admin dashboard (see flecs.h for details). */
     ecs_world_t *world = ecs_init_w_args(argc, argv);
 
-    ECS_IMPORT(world, FlecsMeta, 0);
-    ECS_IMPORT(world, FlecsComponentsHttp, 0);
-    ECS_IMPORT(world, FlecsRest, 0);
-    ECS_IMPORT(world, FlecsSystemsCivetweb, 0);
+    ECS_IMPORT(world, FlecsMeta);
+    ECS_IMPORT(world, FlecsComponentsHttp);
+    ECS_IMPORT(world, FlecsRest);
+    ECS_IMPORT(world, FlecsSystemsCivetweb);
 
     ECS_META(world, Position);
     ECS_META(world, Velocity);
