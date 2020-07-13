@@ -38,7 +38,7 @@ bool request_files(
         fclose(f);
     }
 
-    reply->body = strdup(path);
+    reply->body = ecs_os_strdup(path);
     reply->is_file = true;
 
     return true;
@@ -49,42 +49,42 @@ int main(int argc, char *argv[]) {
      * or for starting the admin dashboard (see flecs.h for details). */
     ecs_world_t *world = ecs_init_w_args(argc, argv);
 
-    ECS_IMPORT(world, FlecsComponentsMeta, 0);
-    ECS_IMPORT(world, FlecsComponentsHttp, 0);
-    ECS_IMPORT(world, FlecsSystemsRest, 0);
-    ECS_IMPORT(world, FlecsSystemsCivetweb, 0);
+    ECS_IMPORT(world, FlecsMeta);
+    ECS_IMPORT(world, FlecsComponentsHttp);
+    ECS_IMPORT(world, FlecsRest);
+    ECS_IMPORT(world, FlecsSystemsCivetweb);
 
     ECS_META(world, Position);
     ECS_META(world, Velocity);
     ECS_META(world, Rotation);
 
     /* Start REST server */
-    ecs_entity_t server = ecs_set(world, 0, EcsRestServer, {.port: 8080});
-
+    ecs_entity_t server = ecs_set(world, 0, EcsRestServer, {.port = 8080});
+    
     /* Add endpoint to server for serving up files */
-    ecs_entity_t e_files = ecs_new_child(world, server, 0);
+    ecs_entity_t e_files = ecs_new_w_entity(world, ECS_CHILDOF | server);
         ecs_set(world, e_files, EcsHttpEndpoint, {
             .url = "",
             .action = request_files
         });
 
     ecs_set(world, ecs_set(world, 0,
-        EcsId, {"E1"}),
+        EcsName, {"E1"}),
         Position, {30, 40});
 
     /* Create a dummy entities for demo data */
     ecs_set(world, ecs_set(world, ecs_set(world, 0,
-        EcsId, {"E2"}),
+        EcsName, {"E2"}),
         Position, {10, 20}),
         Velocity, {1, 2});
 
     ecs_set(world, ecs_set(world, ecs_set(world, 0,
-        EcsId, {"E3"}),
+        EcsName, {"E3"}),
         Position, {30, 40}),
         Velocity, {3, 4});
 
     ecs_set(world, ecs_set(world, ecs_set(world, ecs_set(world, 0,
-        EcsId, {"E4"}),
+        EcsName, {"E4"}),
         Position, {30, 40}),
         Rotation, {0.5}),
         Velocity, {3, 4});        

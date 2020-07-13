@@ -19,7 +19,7 @@
 
 /* Headers of public dependencies */
 #include <flecs.h>
-#include <flecs_components_meta.h>
+#include <flecs_meta.h>
 #include <flecs_systems_rest.h>
 #include <flecs_systems_civetweb.h>
 

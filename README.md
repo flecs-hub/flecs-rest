@@ -4,7 +4,7 @@
 REST interface for Flecs applications. This module allows introspection of entities through a REST interface. Applications can enable the REST interface by importing the module and instantiating the EcsRestServer component:
 
 ```c
-ECS_IMPORT(world, FlecsSystemsRest, 0);
+ECS_IMPORT(world, FlecsRest);
 ecs_entity_t server = ecs_set(world, 0, EcsRestServer, {port: 8080});
 ```
 
@@ -47,23 +47,24 @@ bake run
 ```
 
 ## API overview
-Currently the API has one `entities` endpoint that can either return the data for a single entity or entities that match a set of components. To retrieve data for a single entity called "MyEntity", do:
+
+### GET /entity
+Get data for a single entity.
 
 ```
-http://localhost:8080/entities/MyEntity
+http://localhost/entity/MyEntity
 ```
 
-Which will return something similar to:
+Which will return a response something similar to:
 
 ```json
 {
-  "type": [
-    ["EcsId"],
-    ["Position"]
-  ],
-  "entity": 86,
+  "type": ["Name", "Position"],
+  "entity": 330,
   "data": {
-    "EcsId": "MyEntity",
+    "Name": {
+      "value": "MyEntity"
+    },
     "Position": {
       "x": 30.000000,
       "y": 40.000000
@@ -72,24 +73,77 @@ Which will return something similar to:
 }
 ```
 
-To return all entities for a given component, do:
+To only return a specific set of components, use the select parameter followed by a comma separated list of components:
+```
+http://localhost/entity/MyEntity?select=Position
+```
+
+Which will return a response similar to:
+
+```json
+{
+  "type": ["Name", "Position"],
+  "entity": 330,
+  "data": {
+    "Position": {
+      "x": 30.000000,
+      "y": 40.000000
+    }
+  }
+}
+```
+
+If no entity with the specified name is found, a 404 status is returned.
+
+### DELETE /entity
+Delete a single entity or component.
+
+To delete an entity, just provide an entity identifier:
+```
+http://localhost/entity/MyEntity
+```
+
+To remove one or more components, use the select parameter followed by a comma separated list of components:
+```
+http://localhost/entity/MyEntity?select=Position
+```
+
+If no entity with the specified name is found, a 404 status is returned.
+
+### POST /entity
+Create a new entity with the specified name.
 
 ```
-http://localhost:8080/entities?include=Position
+http://localhost:8080/entity/MyEntity
 ```
 
-Which will return something similar to:
+### PUT /entity
+Add one or more components to an entity.
+
+```
+http://localhost/entity/MyEntity?select=Position
+```
+
+### GET /filter
+Get data for entities matching a filter.
+
+To filter on a component, add it to the include parameter which accepts a comma-separated list of components:
+```
+http://localhost/filter?include=Position
+```
+
+Which will return a response similar to:
 
 ```json
 [{
-  "type": [
-    ["EcsId"],
-    ["Position"],
-    ["Velocity"]
-  ],
-  "entities": [87, 88],
+  "type": ["Name", "Position", "Velocity"],
+  "entities": [330, 331],
   "data": {
-    "EcsId": ["E2", "E3"],
+    "Name": [{
+      "value": "E1"
+    }, {
+      "value": "E2"
+    }],
     "Position": [{
       "x": 10.000000,
       "y": 20.000000
@@ -99,36 +153,126 @@ Which will return something similar to:
     }],
     "Velocity": [{
       "x": 1.000000,
-      "y": 2.000000
+      "y": 1.000000
     }, {
-      "x": 3.000000,
-      "y": 4.000000
+      "x": 1.000000,
+      "y": 1.000000
     }]
   }
 }, {
-  "type": [
-    ["EcsId"],
-    ["Position"],
-    ["Velocity"],
-    ["Rotation"]
-  ],
-  "entities": [89],
+  "type": ["Name", "Position", "Velocity", ["CHILDOF", "E2"]],
+  "entities": [332],
   "data": {
-    "EcsId": ["E4"],
+    "Name": [{
+      "value": "E3"
+    }],
     "Position": [{
       "x": 30.000000,
       "y": 40.000000
     }],
     "Velocity": [{
-      "x": 3.000000,
-      "y": 4.000000
-    }],
-    "Rotation": [{
-      "angle": 0.500000
+      "x": 1.000000,
+      "y": 1.000000
     }]
   }
 }]
 ```
 
+Note how entities in different types are split up in different sections. The exclude parameter can also be used in the same way as the include parameter.
+
+To only return a specific set of components, use the select parameter followed by a comma separated list of components:
+
+```json
+[{
+  "type": ["Name", "Position", "Velocity"],
+  "entities": [330, 331],
+  "data": {
+    "Position": [{
+      "x": 10.000000,
+      "y": 20.000000
+    }, {
+      "x": 30.000000,
+      "y": 40.000000
+    }]
+  }
+}, {
+  "type": ["Name", "Position", "Velocity", ["CHILDOF", "E2"]],
+  "entities": [332],
+  "data": {
+    "Position": [{
+      "x": 30.000000,
+      "y": 40.000000
+    }]
+  }
+}]
+```
+
+### GET /scope
+Similar to `/filter`, but returns entities for a specific scope.
+
+```
+http://localhost/scope/MyScope?include=Position&select=Velocity
+```
+
+Which will return a response similar to:
+
+```json
+[{
+  "type": ["Name", "Position", "Velocity", ["CHILDOF", "MyScope"]],
+  "entities": [330, 331],
+  "data": {
+    "Velocity": [{
+      "x": 1.000000,
+      "y": 1.000000
+    }, {
+      "x": 1.000000,
+      "y": 1.000000
+    }]
+  }
+}]
+```
+
+### GET /browse
+Get information for entities in a scope.
+
+```
+http://localhost/browse/MyScope
+```
+
+Which will return a response similar to:
+
+```json
+[{
+  "id": 330,
+  "type": ["Name", "Position", "Velocity", ["CHILDOF", "MyScope"]],
+  "name": "E1",
+  "path": "MyScope.E1",
+  "child_count": 0
+}, {
+  "id": 331,
+  "type": ["Name", "Position", "Velocity", ["CHILDOF", "MyScope"]],
+  "name": "E2",
+  "path": "MyScope.E2",
+  "child_count": 1
+}]
+```
+
+The include parameter can be used to filter entities.
 
 
+### GET /info
+Get information for a single entity
+
+```
+http://localhost/browse/MyScope/E1
+```
+
+```json
+{
+  "id": 330,
+  "type": ["Name", "Position", "Velocity", ["CHILDOF", "MyScope"]],
+  "name": "E1",
+  "path": "MyScope.E1",
+  "child_count": 0
+}
+```
