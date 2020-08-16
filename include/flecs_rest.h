@@ -4,13 +4,13 @@
 /* This generated file contains includes for project dependencies */
 #include "flecs-rest/bake_config.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 ECS_STRUCT(EcsRestServer, {
     int16_t port;
 });
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct FlecsRest {
     ECS_DECLARE_COMPONENT(EcsRestServer);

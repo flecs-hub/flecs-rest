@@ -9,6 +9,7 @@
             "flecs.components.http",
             "flecs.meta",
             "flecs.json"
-        ]
+        ],
+        "amalgamate": true
     }
 }

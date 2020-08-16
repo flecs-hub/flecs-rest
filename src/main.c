@@ -1,4 +1,6 @@
 #include <flecs_rest.h>
+#include <stdio.h>
+#include <ctype.h>
 
 static
 bool parse_filter(
