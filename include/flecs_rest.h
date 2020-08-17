@@ -16,6 +16,7 @@ typedef struct FlecsRest {
     ECS_DECLARE_COMPONENT(EcsRestServer);
 } FlecsRest;
 
+FLECS_REST_EXPORT
 void FlecsRestImport(
     ecs_world_t *world);
 
@@ -25,5 +26,28 @@ void FlecsRestImport(
 #ifdef __cplusplus
 }
 #endif
+
+#ifdef __cplusplus
+#ifndef FLECS_NO_CPP
+
+namespace flecs {
+
+class rest : public FlecsRest {
+public:
+    using Server = EcsRestServer;
+
+    rest(flecs::world& world) {
+        FlecsRestImport(world.c_ptr());
+
+        flecs::module<flecs::rest>(world, "flecs::rest");
+
+        flecs::component<Server>(world, "Server");
+    }
+};
+
+}
+
+#endif // FLECS_NO_CPP
+#endif // __cplusplus
 
 #endif
