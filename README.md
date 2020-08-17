@@ -13,7 +13,7 @@ The REST module has the following dependencies:
 - https://github.com/flecs-hub/flecs-components-meta
 - https://github.com/flecs-hub/flecs-systems-civetweb
 - https://github.com/flecs-hub/flecs-json
-- https://github.com/SanderMertens/flecs (checkout bleeding-edge)
+- https://github.com/SanderMertens/flecs
 
 To build & run the code either embed the source files of these modules into your project, or use bake (https://github.com/SanderMertens/bake):
 
