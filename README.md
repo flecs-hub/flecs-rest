@@ -1,6 +1,4 @@
 # flecs-systems-rest
-**NOTE: This library currently only works with the bleeding_edge branch of Flecs!**
-
 REST interface for Flecs applications. This module allows introspection of entities through a REST interface. Applications can enable the REST interface by importing the module and instantiating the EcsRestServer component:
 
 ```c
