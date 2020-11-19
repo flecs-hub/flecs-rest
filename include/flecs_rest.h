@@ -16,7 +16,7 @@ typedef struct FlecsRest {
     ECS_DECLARE_COMPONENT(EcsRestServer);
 } FlecsRest;
 
-FLECS_REST_EXPORT
+FLECS_REST_API
 void FlecsRestImport(
     ecs_world_t *world);
 

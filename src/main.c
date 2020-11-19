@@ -319,8 +319,8 @@ bool endpoint_info(
 static
 void EcsRestSetServer(ecs_iter_t *it) {
     EcsRestServer *server_data = ecs_column(it, EcsRestServer, 1);
-    ecs_entity_t ecs_entity(EcsHttpServer) = ecs_column_entity(it, 2);
-    ecs_entity_t ecs_entity(EcsHttpEndpoint) = ecs_column_entity(it, 3);
+    ecs_entity_t ecs_typeid(EcsHttpServer) = ecs_column_entity(it, 2);
+    ecs_entity_t ecs_typeid(EcsHttpEndpoint) = ecs_column_entity(it, 3);
     ecs_entity_t EcsRestInitialized = ecs_column_entity(it, 4);
 
     ecs_world_t *world = it->world;

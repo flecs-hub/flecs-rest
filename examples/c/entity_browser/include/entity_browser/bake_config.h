@@ -32,16 +32,16 @@
 /* Convenience macro for exporting symbols */
 #ifndef ENTITY_BROWSER_STATIC
   #if ENTITY_BROWSER_IMPL && (defined(_MSC_VER) || defined(__MINGW32__))
-    #define ENTITY_BROWSER_EXPORT __declspec(dllexport)
+    #define ENTITY_BROWSER_API __declspec(dllexport)
   #elif ENTITY_BROWSER_IMPL
-    #define ENTITY_BROWSER_EXPORT __attribute__((__visibility__("default")))
+    #define ENTITY_BROWSER_API __attribute__((__visibility__("default")))
   #elif defined _MSC_VER
-    #define ENTITY_BROWSER_EXPORT __declspec(dllimport)
+    #define ENTITY_BROWSER_API __declspec(dllimport)
   #else
-    #define ENTITY_BROWSER_EXPORT
+    #define ENTITY_BROWSER_API
   #endif
 #else
-  #define ENTITY_BROWSER_EXPORT
+  #define ENTITY_BROWSER_API
 #endif
 
 #endif

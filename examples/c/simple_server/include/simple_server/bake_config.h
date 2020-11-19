@@ -31,16 +31,16 @@
 /* Convenience macro for exporting symbols */
 #ifndef SIMPLE_SERVER_STATIC
   #if SIMPLE_SERVER_IMPL && (defined(_MSC_VER) || defined(__MINGW32__))
-    #define SIMPLE_SERVER_EXPORT __declspec(dllexport)
+    #define SIMPLE_SERVER_API __declspec(dllexport)
   #elif SIMPLE_SERVER_IMPL
-    #define SIMPLE_SERVER_EXPORT __attribute__((__visibility__("default")))
+    #define SIMPLE_SERVER_API __attribute__((__visibility__("default")))
   #elif defined _MSC_VER
-    #define SIMPLE_SERVER_EXPORT __declspec(dllimport)
+    #define SIMPLE_SERVER_API __declspec(dllimport)
   #else
-    #define SIMPLE_SERVER_EXPORT
+    #define SIMPLE_SERVER_API
   #endif
 #else
-  #define SIMPLE_SERVER_EXPORT
+  #define SIMPLE_SERVER_API
 #endif
 
 #endif
