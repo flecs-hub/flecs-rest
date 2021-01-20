@@ -10,6 +10,9 @@ bool parse_filter(
 {
     char buffer[1024];
 
+    filter->include = NULL;
+    filter->exclude = NULL;
+
     if (ecs_http_get_query_param(
         request->params, "include", buffer, sizeof(buffer)))
     {
