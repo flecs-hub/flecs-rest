@@ -93,7 +93,7 @@ bool endpoint_filter(
     EcsHttpRequest *request,
     EcsHttpReply *reply)
 {
-    ecs_filter_t filter = { };
+    ecs_filter_t filter;
     ecs_type_t select = NULL;
 
     if (!parse_filter(world, request, &filter)) {
@@ -120,7 +120,7 @@ bool endpoint_scope(
     EcsHttpReply *reply)
 {
     ecs_entity_t e = 0;
-    ecs_filter_t filter = { };
+    ecs_filter_t filter;
     ecs_type_t select = NULL;
     
     if (!parse_entity(world, request, &e)) {
@@ -264,7 +264,7 @@ bool endpoint_browse(
     EcsHttpRequest *request,
     EcsHttpReply *reply)
 {
-    ecs_filter_t filter = { };
+    ecs_filter_t filter;
     ecs_entity_t e;
 
     if (!parse_entity(world, request, &e)) {
