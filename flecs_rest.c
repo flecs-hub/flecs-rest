@@ -12,6 +12,9 @@ bool parse_filter(
 {
     char buffer[1024];
 
+    filter->include = NULL;
+    filter->exclude = NULL;
+
     if (ecs_http_get_query_param(
         request->params, "include", buffer, sizeof(buffer)))
     {
@@ -72,7 +75,7 @@ bool parse_entity(
         if (isdigit(name[0])) {
             e = atoi(name);
         } else {
-            e = ecs_lookup_path_w_sep(world, 0, name, "/", NULL);
+            e = ecs_lookup_path_w_sep(world, 0, name, "/", NULL, true);
             if (!e) {
                 return false;
             }
@@ -92,7 +95,7 @@ bool endpoint_filter(
     EcsHttpRequest *request,
     EcsHttpReply *reply)
 {
-    ecs_filter_t filter = { };
+    ecs_filter_t filter;
     ecs_type_t select = NULL;
 
     if (!parse_filter(world, request, &filter)) {
@@ -119,7 +122,7 @@ bool endpoint_scope(
     EcsHttpReply *reply)
 {
     ecs_entity_t e = 0;
-    ecs_filter_t filter = { };
+    ecs_filter_t filter;
     ecs_type_t select = NULL;
     
     if (!parse_entity(world, request, &e)) {
@@ -263,7 +266,7 @@ bool endpoint_browse(
     EcsHttpRequest *request,
     EcsHttpReply *reply)
 {
-    ecs_filter_t filter = { };
+    ecs_filter_t filter;
     ecs_entity_t e;
 
     if (!parse_entity(world, request, &e)) {

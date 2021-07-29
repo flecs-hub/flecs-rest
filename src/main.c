@@ -73,7 +73,7 @@ bool parse_entity(
         if (isdigit(name[0])) {
             e = atoi(name);
         } else {
-            e = ecs_lookup_path_w_sep(world, 0, name, "/", NULL);
+            e = ecs_lookup_path_w_sep(world, 0, name, "/", NULL, true);
             if (!e) {
                 return false;
             }
