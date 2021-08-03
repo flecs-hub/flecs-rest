@@ -343,7 +343,7 @@ void EcsRestSetServer(ecs_iter_t *it) {
         }
 
           ecs_entity_t e_filter = ecs_new_w_entity(world, ECS_CHILDOF | server);
-            ecs_set(world, e_filter, EcsName, {"e_filter"});
+            ecs_set_name(world, e_filter, "e_filter");
             ecs_set(world, e_filter, EcsHttpEndpoint, {
                 .url = "filter",
                 .action = endpoint_filter,
@@ -353,7 +353,7 @@ void EcsRestSetServer(ecs_iter_t *it) {
           
           // Get filtered list of children
           ecs_entity_t e_scope = ecs_new_w_entity(world, ECS_CHILDOF | server);
-            ecs_set(world, e_scope, EcsName, {"e_scope"});
+            ecs_set_name(world, e_scope, "e_scope");
             ecs_set(world, e_scope, EcsHttpEndpoint, {
                 .url = "scope",
                 .action = endpoint_scope,
@@ -363,7 +363,7 @@ void EcsRestSetServer(ecs_iter_t *it) {
 
           // Get component data for single entity
           ecs_entity_t e_entity = ecs_new_w_entity(world, ECS_CHILDOF | server);
-            ecs_set(world, e_entity, EcsName, {"e_entity"});
+            ecs_set_name(world, e_entity, "e_entity");
             ecs_set(world, e_entity, EcsHttpEndpoint, {
                 .url = "entity",
                 .action = endpoint_entity,
@@ -373,7 +373,7 @@ void EcsRestSetServer(ecs_iter_t *it) {
 
           // Browse entity information
           ecs_entity_t e_browse = ecs_new_w_entity(world, ECS_CHILDOF | server);
-            ecs_set(world, e_browse, EcsName, {"e_browse"});
+            ecs_set_name(world, e_browse, "e_browse");
             ecs_set(world, e_browse, EcsHttpEndpoint, {
                 .url = "browse",
                 .action = endpoint_browse,
@@ -383,7 +383,7 @@ void EcsRestSetServer(ecs_iter_t *it) {
 
           // Browse entity information for single entity
           ecs_entity_t e_info = ecs_new_w_entity(world, ECS_CHILDOF | server);
-            ecs_set(world, e_info, EcsName, {"e_info"});
+            ecs_set_name(world, e_info, "e_info");
             ecs_set(world, e_info, EcsHttpEndpoint, {
                 .url = "info",
                 .action = endpoint_info,
